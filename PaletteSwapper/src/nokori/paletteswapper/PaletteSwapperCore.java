@@ -16,9 +16,13 @@ public class PaletteSwapperCore {
 	public static void main(String args[]) {
 		
 		try {
+			System.out.println("Please select a palette definition.");
 			File[] paletteFiles = getPaletteFiles();
+			
+			System.out.println("Please select image files to edit.");
 			File[] imageFiles = getImageFiles();
 			
+			System.out.println("Starting:");
 			for (int i = 0; i < paletteFiles.length; i++) {
 				PaletteSwapper.buildPalette(paletteFiles[i], imageFiles);
 			}
@@ -31,6 +35,7 @@ public class PaletteSwapperCore {
 		
 		JOptionPane.showMessageDialog(null, "Palette swap complete. Exiting program.", "Success", JOptionPane.INFORMATION_MESSAGE);
 		
+		System.out.println("Exiting...");
 		System.exit(0);
 	}
 	
