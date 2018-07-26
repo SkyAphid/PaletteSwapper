@@ -16,5 +16,5 @@ Palette Swapper uses Java 1.8
 
 [To run Palette Swapper, simply install Java and then run the JAR.](https://java.com/en/download/)
 
-##Download
+## Download
 [Latest Releases](https://github.com/SkyAphid/PaletteSwapper/releases)
