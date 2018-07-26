@@ -9,6 +9,7 @@ When you run Palette Swapper, it will first ask for a palette definitions text f
 Palette Swapper has two syntax types for palette definitoons: Brasch syntax and Worms syntax. By default, it will use Brasch syntax. Below are links to examples on making your own palette definitons.
 
 [Brasch Syntax Mode Example File](https://github.com/SkyAphid/PaletteSwapper/blob/master/PaletteSwapper/RockPaletteVerBrasch.txt)
+
 [Worms Syntax Mode Example File](https://github.com/SkyAphid/PaletteSwapper/blob/master/PaletteSwapper/RockPaletteVerWorms.txt)
 
 ## Dependencies and Running
