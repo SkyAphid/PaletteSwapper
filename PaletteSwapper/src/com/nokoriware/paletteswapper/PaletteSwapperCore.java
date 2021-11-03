@@ -1,4 +1,4 @@
-package nokori.paletteswapper;
+package com.nokoriware.paletteswapper;
 
 import java.io.File;
 import java.io.IOException;

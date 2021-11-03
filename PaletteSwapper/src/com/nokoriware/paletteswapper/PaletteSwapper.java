@@ -1,4 +1,4 @@
-package nokori.paletteswapper;
+package com.nokoriware.paletteswapper;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
