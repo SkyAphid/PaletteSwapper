@@ -1,4 +1,3 @@
-#WormsSyntax
 #4D5F64
 #69837B
 #93AA9A
