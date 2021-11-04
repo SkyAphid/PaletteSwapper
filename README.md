@@ -1,7 +1,7 @@
 # PaletteSwapper
 ![rock example](https://user-images.githubusercontent.com/6147299/43259782-1362a72a-909d-11e8-8054-eb8216f421c3.png)
 
-A small tool that allows you to change the palettes of multiple image files. 
+A small tool that allows you to change the palettes of multiple image files. It supports both indexed images, but also unindexed images as well.
 
 ## Examples
 When you run Palette Swapper, it will first ask for a palette definitions text file, and then some images to edit. Multiple palette files and images can be inputted at once.
