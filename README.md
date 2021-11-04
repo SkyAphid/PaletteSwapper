@@ -4,15 +4,13 @@
 A small tool that allows you to change the palettes of multiple image files. It supports both indexed images, but also unindexed images as well.
 
 ## Examples
-When you run Palette Swapper, it will first ask for a palette definitions text file, and then some images to edit. Multiple palette files and images can be inputted at once.
+When you run Palette Swapper, it will first ask for a palette definitions text file, and then some images to edit. Multiple palette files and images can be inputted at once. Palette Swapper requires you to make a basic .txt file that acts as the swapping definition, so that it knows what colors to replace and how many files to make.
 
-Palette Swapper has two syntax types for palette definitoons: Brasch syntax and Worms syntax. By default, it will use Brasch syntax. Below are links to examples on making your own palette definitons.
+### [Syntax Example File](https://github.com/SkyAphid/PaletteSwapper/blob/master/PaletteSwapper/RockPaletteVerWorms.txt)
+- At the top of the file, insert the base colors.
+- Indicate a split (or chunk) with a ``-`` and add corresponding colors that will replace the base colors with. Splits can also indicate that you want to do another recolor and produce another chunk (image), so you can add as many splits as you want.
+- Add the corresponding colors below that you'd want the base colors at the top replaced with. Just make sure the orders of your new colors correspond appropriately to the base colors.
 
-### [Brasch Syntax Mode Example File](https://github.com/SkyAphid/PaletteSwapper/blob/master/PaletteSwapper/RockPaletteVerBrasch.txt)
-This syntax is best used for quick one-off palette swaps, and of the two is the most "clear" to read. It only supports one swap per base color. 
-
-### [Worms Syntax Mode Example File](https://github.com/SkyAphid/PaletteSwapper/blob/master/PaletteSwapper/RockPaletteVerWorms.txt)
-This syntax is used for larger palette swap jobs and is much more versatile. At the top of the file, insert the base colors. Then indicate a split (or chunk) with a ``-``. Then add the corresponding colors below that you'd want the base colors at the top replaced with.
 
 ## Dependencies and Running
 Palette Swapper uses Java 1.8
