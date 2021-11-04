@@ -1,21 +1,29 @@
 package com.nokoriware.paletteswapper;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.DataBuffer;
+import java.awt.image.DataBufferByte;
+import java.awt.image.IndexColorModel;
+import java.awt.image.Raster;
+import java.awt.image.SampleModel;
+import java.awt.image.SinglePixelPackedSampleModel;
+import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import javax.imageio.ImageIO;
 
 public class PaletteSwapper {
 	
-	private static final String BRASCH_SYNTAX = "#BraschSyntax";
-	private static final String WORMS_SYNTAX = "#WormsSyntax";
-	
+
 	public static void buildPalette(File paletteFile, File[] imageFiles) throws Exception {
 		System.out.println("Looking for definitions in " + paletteFile.getName());
 
@@ -24,58 +32,23 @@ public class PaletteSwapper {
 		
 		String paletteName = paletteFile.getName().substring(0, paletteFile.getName().indexOf("."));
 		
-		switch(lines[0]) {
-		case WORMS_SYNTAX:
-			runWormsPaletteSwap(paletteName, lines, imageFiles);
-			break;
-		case BRASCH_SYNTAX:
-		default:
-			runBraschPaletteSwap(paletteName, lines, imageFiles);
-			break;
-		}
+		runWormsPaletteSwap(paletteName, lines, imageFiles);
 	}
 	
 	/*
-	 * Brasch Syntax
+	 * 
+	 * 
+	 * Palette Generation
+	 * 
+	 * 
 	 */
-	
-	private static final String POINTER_KEYWORD = "->";
-	private static final int EXPECTED_BRASCH_LINE_LENGTH = 16;
-	
-	private static void runBraschPaletteSwap(String paletteName, String[] lines, File[] imageFiles) throws IOException {
-		System.out.println("Using Brasch syntax to build palette");
-		
-		Palette palette = new Palette();
-
-		//Build palette
-		for (int j = 0; j < lines.length; j++) {
-			if (lines[j].length() == EXPECTED_BRASCH_LINE_LENGTH) {
-				int pointerIndex = lines[j].indexOf(POINTER_KEYWORD);
-
-				if (pointerIndex != -1) {
-					String findColor = lines[j].substring(0, pointerIndex).toUpperCase(Locale.ENGLISH);
-					String replaceColor = lines[j].substring(pointerIndex + POINTER_KEYWORD.length(), lines[j].length()).toUpperCase(Locale.ENGLISH);
-
-					palette.put(findColor, replaceColor);
-
-					System.out.println("Found definition: " + findColor + " will be replaced with " + replaceColor);
-				}
-			}
-		}
-		
-		//Replace colors
-		BufferedImage[] images = replaceColors(palette, imageFiles);
-		
-		//Save files
-		saveFiles(paletteName, imageFiles, images);
-	}
 	
 	/*
 	 * Worms Mode
 	 */
 	
 	private static final String CHUNK_KEYWORD = "-";
-	private static final int EXPECTED_WORMS_LINE_LENGTH = 7;
+	private static final int EXPECTED_LINE_LENGTH = 7;
 	
 	private static void runWormsPaletteSwap(String paletteName, String[] lines, File[] imageFiles) throws Exception {
 		System.out.println("Using Brasch syntax to build palette");
@@ -93,7 +66,7 @@ public class PaletteSwapper {
 			}
 			
 			//Color
-			if (lines[j].length() == EXPECTED_WORMS_LINE_LENGTH) {
+			if (lines[j].length() == EXPECTED_LINE_LENGTH) {
 				if (!palettes.isEmpty()) {
 					Palette palette = palettes.get(palettes.size()-1);
 					
@@ -122,13 +95,18 @@ public class PaletteSwapper {
 
 	/*
 	 * 
-	 * General Tools
+	 * 
+	 * Color Tools
+	 * 
 	 * 
 	 */
 	
-
-	
-	private static final BufferedImage[] replaceColors(Palette palette, File[] imageFiles) throws IOException {
+	/**
+	 * With the given palette, scan and replace colors in all of the image files.
+	 * 
+	 * Indexed and Unindexed images are treated differently to accomodate both.
+	 */
+	private static BufferedImage[] replaceColors(Palette palette, File[] imageFiles) throws IOException {
 		BufferedImage[] images = new BufferedImage[imageFiles.length];
 		
 		for (int i = 0; i < imageFiles.length; i++) {
@@ -136,24 +114,55 @@ public class PaletteSwapper {
 		}
 		
 		for (int i = 0; i < images.length; i++) {
+			
 			BufferedImage image = images[i];
-
-			for (int x = 0; x < image.getWidth(); x++) {
-				for (int y = 0; y < image.getHeight(); y++) {
-
-					Color color = new Color(image.getRGB(x, y));
-					String hexCode = String.format("#%02X%02X%02X", color.getRed(), color.getGreen(), color.getBlue());  
-					
-					if (palette.containsKey(hexCode)) {
-						Color replace = Color.decode(palette.get(hexCode));
-						image.setRGB(x, y, replace.getRGB());
-					}
-				}
+			
+			if (image.getColorModel() instanceof IndexColorModel) {
+				image = convertToARGB(image);
 			}
+				
+			images[i] = replaceColorsUnindexed(palette, image);
 		}
 		
 		return images;
 	}
+	
+	private static BufferedImage replaceColorsUnindexed(Palette palette, BufferedImage image) throws IOException {
+		for (int x = 0; x < image.getWidth(); x++) {
+			for (int y = 0; y < image.getHeight(); y++) {
+
+				Color color = new Color(image.getRGB(x, y));
+				String hexCode = String.format("#%02X%02X%02X", color.getRed(), color.getGreen(), color.getBlue());
+
+				if (palette.containsKey(hexCode)) {
+					Color replace = Color.decode(palette.get(hexCode));
+					image.setRGB(x, y, replace.getRGB());
+				}
+			}
+		}
+
+		return image;
+	}
+	
+	public static BufferedImage convertToARGB(BufferedImage i) {
+	    BufferedImage result = new BufferedImage(i.getWidth(null), i.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+	    
+	    Graphics2D g2d = result.createGraphics();
+	    g2d.setComposite(AlphaComposite.Clear);
+	    g2d.fillRect(0, 0, result.getWidth(), result.getHeight());
+	    g2d.setComposite(AlphaComposite.Src);
+	    g2d.drawImage(i, 0, 0, null);
+	    
+	    return result;
+	}
+
+	/*
+	 * 
+	 * 
+	 * I/O
+	 * 
+	 * 
+	 */
 	
 	private static final void saveFiles(String paletteName, File[] imageFiles, BufferedImage[] images) throws IOException {
 		for (int i = 0; i < images.length; i++) {
