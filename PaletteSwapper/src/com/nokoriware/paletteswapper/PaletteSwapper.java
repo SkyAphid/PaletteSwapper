@@ -43,8 +43,6 @@ public class PaletteSwapper {
 	private static final int EXPECTED_LINE_LENGTH = 7;
 	
 	private static void runWormsPaletteSwap(String paletteName, String[] lines, File[] imageFiles) throws Exception {
-		System.out.println("Using Brasch syntax to build palette");
-		
 		ArrayList<Palette> palettes = new ArrayList<Palette>();
 		ArrayList<String> baseColors = new ArrayList<String>();
 
