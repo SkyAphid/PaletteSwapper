@@ -1,5 +1,4 @@
-# PaletteSwapper
-## For quickly making recolors of sprites and images
+# PaletteSwapper - The easy to use sprite recoloring tool
 ![rock example](https://user-images.githubusercontent.com/6147299/43259782-1362a72a-909d-11e8-8054-eb8216f421c3.png)
 
 PaletteSwapper is a small tool that allows you to recolor images and sprites quickly using basic syntax in an ordinary text file. 
