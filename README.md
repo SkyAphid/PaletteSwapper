@@ -11,11 +11,15 @@ PaletteSwapper is a small tool that allows you to recolor images and sprites qui
 When you run Palette Swapper, it will first ask for a palette definitions text file, and then some images to edit. Multiple palette files and images can be inputted at once. Palette Swapper requires you to make a basic .txt file that acts as the swapping definition, so that it knows what colors to replace and how many files to make.
 
 ### [Syntax Example File](https://github.com/SkyAphid/PaletteSwapper/blob/master/PaletteSwapper/RockPalette.txt)
+
+***Step-by-step tutorial:***
 - At the top of the file, insert the base colors.
 - Indicate a split (or chunk) with a ``-`` and add corresponding colors that will replace the base colors with. Splits can also indicate that you want to do another recolor and produce another chunk (image), so you can add as many splits as you want.
 - Add the corresponding colors below that you'd want the base colors at the top replaced with. Just make sure the orders of your new colors correspond appropriately to the base colors.
 
-## Download
-You can download a standalone EXE for the program here. The JAR is included, so you can run it with JRE16 or higher from command line as well if you're on another OS.
+***Further information***
 
-[Latest Releases](https://github.com/SkyAphid/PaletteSwapper/releases)
+These .txt definitions take in HEX values. So you'll list out the base colors (as in, the palette of the image you're starting with), and then add a split and list out the HEX values of the corresponding replacement colors. You must list these out in the same order, so in the example below, the first color at the top is `#4D5F64`; then after the first split (the `-`), the first value is `#776242`. That means when PaletteSwapper is ran with this definition, all instances of color `#4D5F64` will be replaced with the color `#776242`.
+
+## [Releases / Download](https://github.com/SkyAphid/PaletteSwapper/releases)
+You can download a standalone EXE for the program here. The JAR is included, so you can run it with JRE16 or higher from command line as well if you're on another OS.
