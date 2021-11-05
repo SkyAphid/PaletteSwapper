@@ -8,7 +8,7 @@ PaletteSwapper is a small tool that allows you to recolor images and sprites qui
 ![Screenshot 2021-11-04 151440](https://user-images.githubusercontent.com/6147299/140413136-810b3385-3b26-4987-a479-d4abc3da63f8.png)
 
 ## Examples
-When you run Palette Swapper, it will first ask for a text file containing instructions for the recoloring, and then a list of images to recolor (multiple image files can be selected). Palette Swapper requires you to make a basic .txt file (*swapping definitions*), so that it knows what colors to replace and how many different recolored files to make (*chunks*).
+When you run Palette Swapper, it will first ask for a text file containing instructions for the recoloring, and then a list of images to recolor (multiple image files can be selected). Palette Swapper requires you to make a basic .txt file (*color swapping definitions*), so that it knows what colors to replace and how many different recolored files to make (*chunks*).
 
 ### [Syntax Example File](https://github.com/SkyAphid/PaletteSwapper/blob/master/PaletteSwapper/RockPalette.txt)
 
