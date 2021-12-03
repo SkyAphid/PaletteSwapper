@@ -12,10 +12,24 @@ When you run Palette Swapper, it will first ask for a text file containing instr
 
 ### [Syntax Example File](https://github.com/SkyAphid/PaletteSwapper/blob/master/PaletteSwapper/RockPalette.txt)
 
+```
+#4D5F64
+#69837B
+#93AA9A
+#3F474E
+-
+#776242
+#A88960
+#C1B588
+#4F382F
+```
+This is the example syntax file included with the project. You can click the link above to view it as well.
+
 ***Step-by-step tutorial:***
-- At the top of the file, insert the base colors.
-- Indicate a split (or chunk) with a ``-`` and add corresponding colors that will replace the base colors with. Splits can also indicate that you want to do another recolor and produce another chunk (image), so you can add as many splits as you want.
+- At the top of the file, insert the base colors to be replaced that are in the file you wish to recolor.
+- Indicate a split (or chunk) with a ``-``. Splits indicate a new file, and you can add as many splits and files as you want.
 - Add the corresponding colors below that you'd want the base colors at the top replaced with. Just make sure the orders of your new colors correspond appropriately to the base colors.
+- Run the program and the new recolored files will be produced in the same location as the original file.
 
 ***Further information***
 
