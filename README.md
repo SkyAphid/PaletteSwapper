@@ -1,5 +1,5 @@
 # PaletteSwapper - The easy to use sprite recoloring tool
-![rock example](https://user-images.githubusercontent.com/6147299/43259782-1362a72a-909d-11e8-8054-eb8216f421c3.png)
+![rock example](https://user-images.githubusercontent.com/6147299/144668165-7cc80c1c-402a-485f-8dd6-642be9f11fb4.png)
 
 PaletteSwapper is a small tool that allows you to recolor images and sprites quickly using basic syntax in an ordinary text file. 
 - Can make multiple recolors at once and export multiple files just using one syntax .txt file
