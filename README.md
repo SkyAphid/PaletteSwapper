@@ -33,7 +33,7 @@ This is the example syntax file included with the project. You can click the lin
 
 ***Further information***
 
-These .txt definitions take in HEX values. So you'll list out the base colors (as in, the palette of the image you're starting with), and then add a split and list out the HEX values of the corresponding replacement colors. You must list these out in the same order, so in the example below, the first color at the top is `#4D5F64`; then after the first split (the `-`), the first value is `#776242`. That means when PaletteSwapper is ran with this definition, all instances of color `#4D5F64` will be replaced with the color `#776242`.
+These .txt definitions take in HEX values. So you'll list out the base colors that you wish to replace (as in, the palette of the image you're starting with), and then add a split and list out the HEX values of the corresponding replacement colors. You must list these out in the same order, so in the example above, the first color at the top is `#4D5F64`; then after the first split (the `-`), the first value is `#776242`. That means when PaletteSwapper is ran with this definition, all instances of color `#4D5F64` will be replaced with the color `#776242`.
 
 ## [Releases / Download](https://github.com/SkyAphid/PaletteSwapper/releases)
 You can download a standalone EXE for the program here. The JAR is included, so you can run it with JRE16 or higher from command line as well if you're on another OS.
