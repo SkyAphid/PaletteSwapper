@@ -23,7 +23,7 @@ When you run Palette Swapper, it will first ask for a text file containing instr
 #C1B588
 #4F382F
 ```
-This is the example syntax file included with the project. You can click the link above to view it as well.
+This is the example syntax file included with the project. You can click the link above to view and download it as well. These files must be saved as .txt files.
 
 ***Step-by-step tutorial:***
 - At the top of the file, insert the base colors to be replaced that are in the file you wish to recolor.
