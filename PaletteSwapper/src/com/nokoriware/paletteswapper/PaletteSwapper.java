@@ -19,8 +19,7 @@ public class PaletteSwapper {
 	public static void buildPalette(File paletteFile, File[] imageFiles) throws Exception {
 		System.out.println("Looking for definitions in " + paletteFile.getName());
 
-		String s = new String(Files.readAllBytes(paletteFile.toPath()));
-		String[] lines = s.split(System.getProperty("line.separator"));
+		String[] lines = Files.readAllLines(paletteFile.toPath());
 		
 		String paletteName = paletteFile.getName().substring(0, paletteFile.getName().indexOf("."));
 		
@@ -42,7 +41,7 @@ public class PaletteSwapper {
 	private static final String CHUNK_KEYWORD = "-";
 	private static final int EXPECTED_LINE_LENGTH = 7;
 	
-	private static void runWormsPaletteSwap(String paletteName, String[] lines, File[] imageFiles) throws Exception {
+	private static void runWormsPaletteSwap(String paletteName, List<String> lines, File[] imageFiles) throws Exception {
 		ArrayList<Palette> palettes = new ArrayList<Palette>();
 		ArrayList<String> baseColors = new ArrayList<String>();
 
