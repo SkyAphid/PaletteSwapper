@@ -8,8 +8,10 @@ import java.awt.image.IndexColorModel;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -18,13 +20,17 @@ public class PaletteSwapper {
 
 	public static void buildPalette(File paletteFile, File[] imageFiles) throws Exception {
 		System.out.println("Looking for definitions in " + paletteFile.getName());
-
-		String s = new String(Files.readAllBytes(paletteFile.toPath()));
-		String[] lines = s.split(System.getProperty("line.separator"));
 		
 		String paletteName = paletteFile.getName().substring(0, paletteFile.getName().indexOf("."));
+
+		try {
+			List<String> lines = Files.readAllLines(paletteFile.toPath(), StandardCharsets.UTF_8);			
+			runWormsPaletteSwap(paletteName, lines, imageFiles);
+		} catch (IOException e) {
+			List<String> lines = Files.readAllLines(paletteFile.toPath(), StandardCharsets.UTF_16);			
+			runWormsPaletteSwap(paletteName, lines, imageFiles);
+		}
 		
-		runWormsPaletteSwap(paletteName, lines, imageFiles);
 	}
 	
 	/*
@@ -42,34 +48,34 @@ public class PaletteSwapper {
 	private static final String CHUNK_KEYWORD = "-";
 	private static final int EXPECTED_LINE_LENGTH = 7;
 	
-	private static void runWormsPaletteSwap(String paletteName, String[] lines, File[] imageFiles) throws Exception {
+	private static void runWormsPaletteSwap(String paletteName, List<String> lines, File[] imageFiles) throws Exception {
 		ArrayList<Palette> palettes = new ArrayList<Palette>();
 		ArrayList<String> baseColors = new ArrayList<String>();
 
 		//Build palette
-		for (int j = 0; j < lines.length; j++) {
+		for (int j = 0; j < lines.size(); j++) {
 			
 			//Chunk divider
-			if (lines[j].equals(CHUNK_KEYWORD)) {
+			if (lines.get(j).equals(CHUNK_KEYWORD)) {
 				palettes.add(new Palette());
 				System.out.println("Chunk divider found: defining new palette (Chunk " + palettes.size() + ")");
 			}
 			
 			//Color
-			if (lines[j].length() == EXPECTED_LINE_LENGTH) {
+			if (lines.get(j).length() == EXPECTED_LINE_LENGTH) {
 				if (!palettes.isEmpty()) {
 					Palette palette = palettes.get(palettes.size()-1);
 					
 					String findColor = baseColors.get(palette.size());
 					
-					palette.put(findColor, lines[j]);
+					palette.put(findColor, lines.get(j));
 
-					System.out.println("Found definition: " + findColor + " will be replaced with " + lines[j]);
+					System.out.println("Found definition: " + findColor + " will be replaced with " + lines.get(j));
 				} else {
 					//Build base color list if a palette hasn't been defined yet
-					baseColors.add(lines[j]);
+					baseColors.add(lines.get(j));
 					
-					System.out.println("Added base color: " + lines[j]);
+					System.out.println("Added base color: " + lines.get(j));
 				}
 			}
 		}
